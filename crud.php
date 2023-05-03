@@ -7,9 +7,23 @@
 
     // vamos agora verificar em qual botão foi clicado
 
-    if (isset($_POST ["iserir"]))
+    if (isset($_POST ["inserir"]))
     {
-        $comando = $pdo->prepare("INSERT INTO alunos VALUES('$cpf', '$nome', $idade)");
+        $comando = $pdo->prepare("INSERT INTO aluno VALUES('$cpf','$nome',$idade)");
+        $resultado = $comando->execute();
+        header("Location: index.html"); //volta, 
+    }
+
+    if (isset($_POST ["excluir"]))
+    {
+        $comando = $pdo->prepare("DELETE FROM aluno WHERE cpf='$cpf' ");
+        $resultado = $comando->execute();
+        header("Location: index.html"); //volta, 
+    }
+
+    if (isset($_POST ["alterar"]))
+    {
+        $comando = $pdo->prepare("UPDATE aluno SET nome='$nome', idade=$idade WHERE cpf='$cpf' ");
         $resultado = $comando->execute();
         header("Location: index.html"); //volta, 
     }
